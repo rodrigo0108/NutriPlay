@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "951186383061",
+    "firebase_url": "https://nutri-846ac.firebaseio.com",
+    "project_id": "nutri-846ac",
+    "storage_bucket": "nutri-846ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951186383061:android:f32ee3ad6ab57524",
+        "android_client_info": {
+          "package_name": "com.ramos.nutriplay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "951186383061-e569e747qvc15v7su8cne8b5671ta6kt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ramos.nutriplay",
+            "certificate_hash": "24fb5b393bc47513edf924e398d2afffab711fe0"
+          }
+        },
+        {
+          "client_id": "951186383061-im3ilptkmfphvq5om75lqfdbsokbvgbk.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "951186383061-im3ilptkmfphvq5om75lqfdbsokbvgbk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFJNXULBRyG0IFBHM0I7OkKQodZeO6xsA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "951186383061-im3ilptkmfphvq5om75lqfdbsokbvgbk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
