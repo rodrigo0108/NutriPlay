@@ -11,16 +11,15 @@
         android:id="@+id/card_alimento"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:elevation="3dp"
         app:cardCornerRadius="10dp">
+
         <ImageView
+            android:id="@+id/img_alimento"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/img_alimento"
-            android:src="@drawable/ic_sh_cebolla"
-            android:scaleType="centerInside"
             android:adjustViewBounds="true"
             android:foreground="?android:attr/selectableItemBackground"
-            />
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_sh_cebolla" />
     </android.support.v7.widget.CardView>
 </RelativeLayout>

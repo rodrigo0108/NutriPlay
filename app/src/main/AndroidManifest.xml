@@ -35,7 +35,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".actividades.MainActivity" />
         </activity>
-        <activity android:name=".actividades.DetalleAlimentoActivity"></activity>
+        <activity
+            android:name=".actividades.DetalleAlimentoActivity"
+            android:parentActivityName=".actividades.ListaAlimentosActivity">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".actividades.ListaAlimentosActivity" />
+        </activity>
     </application>
 
 </manifest>
