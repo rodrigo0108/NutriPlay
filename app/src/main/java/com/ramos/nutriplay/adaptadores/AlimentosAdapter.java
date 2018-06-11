@@ -1,19 +1,24 @@
 package com.ramos.nutriplay.adaptadores;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.ramos.nutriplay.R;
+import com.ramos.nutriplay.actividades.DetalleAlimentoActivity;
 import com.ramos.nutriplay.modelos.Alimento;
+import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
@@ -39,18 +44,29 @@ public class AlimentosAdapter extends RecyclerView.Adapter<AlimentosAdapter.Alim
 
     @Override
     public void onBindViewHolder(@NonNull AlimentoViewHolder holder, int position) {
-        Alimento alimento = alimentoList.get(position);
-        if(coleccion_alimentos != null) {
-            if (coleccion_alimentos.get(alimento.getId())) {
-                holder.card_imagen.setClickable(true);
-                Glide.with(context)
-                        .load(alimento.getImagen())
-                        .into(holder.alimentoView);
-            } else {
-                Glide.with(context)
-                        .load(alimento.getImagen_oscura())
-                        .into(holder.alimentoView);
+        try {
+            final Alimento alimento = alimentoList.get(position);
+            if (coleccion_alimentos != null) {
+                if (coleccion_alimentos.get(alimento.getId())) {
+                    holder.card_imagen.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //accion
+                            Intent intent = new Intent(context, DetalleAlimentoActivity.class);
+                            intent.putExtra("DATOS_ALIMENTO", alimento.getBeneficios());
+                            context.startActivity(intent);
+
+                        }
+                    });
+                    mostrar(alimento.getImagen(),holder.alimentoView);
+                } else {
+                    holder.card_imagen.setClickable(false);
+                    mostrar(alimento.getImagen_oscura(),holder.alimentoView);
+                }
+
             }
+        }catch (Exception e){
+            Log.d("TAG",e.toString());
         }
     }
 
@@ -67,5 +83,8 @@ public class AlimentosAdapter extends RecyclerView.Adapter<AlimentosAdapter.Alim
             alimentoView = (ImageView)view.findViewById(R.id.img_alimento);
             card_imagen = (CardView)view.findViewById(R.id.card_alimento);
         }
+    }
+    public void mostrar(String url_imagen,ImageView imagen){
+        Picasso.get().load(url_imagen).into(imagen);
     }
 }

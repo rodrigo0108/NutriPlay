@@ -2,6 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ramos.nutriplay">
 
+    <!-- Permiso para acceso a la camara del dispositivo -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- Permiso de lectura y escritura al almacenamiento externo del dispositivo -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- Acceso a internet para Picasso-->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,13 +28,14 @@
         <activity
             android:name=".actividades.ListaAlimentosActivity"
             android:label="Mis Alimentos!"
-            android:parentActivityName=".actividades.MainActivity" >
+            android:parentActivityName=".actividades.MainActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".actividades.MainActivity" />
         </activity>
+        <activity android:name=".actividades.DetalleAlimentoActivity"></activity>
     </application>
 
 </manifest>

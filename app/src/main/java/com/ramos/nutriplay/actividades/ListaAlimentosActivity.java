@@ -20,7 +20,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.ramos.nutriplay.R;
 import com.ramos.nutriplay.adaptadores.AlimentosAdapter;
 import com.ramos.nutriplay.modelos.Alimento;
-import com.ramos.nutriplay.modelos.Estado;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,8 +36,7 @@ public class ListaAlimentosActivity extends AppCompatActivity {
     private HashMap<String,Boolean> coleccion_alimentos;
 
     //PRUEBA
-    private String uid_usuario="lj3jbd2123";
-    //---------
+    private String uid_usuario="2asd2dn4r2b";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,10 +51,13 @@ public class ListaAlimentosActivity extends AppCompatActivity {
         databaseReference2 = firebaseDatabase.getReference("Coleccion");
 
         adapter = new AlimentosAdapter(alimentos,this,coleccion_alimentos);
-        recyclerViewAlimento.setLayoutManager(new GridLayoutManager(this,3));
-        //No hace lo que deseo
-        recyclerViewAlimento.addItemDecoration(new GridSpacingItemDecoration(3,15,false));
         recyclerViewAlimento.setAdapter(adapter);
+        recyclerViewAlimento.setHasFixedSize(true);
+        // Pasando el padding de cada card
+        int tilePadding = getResources().getDimensionPixelSize(R.dimen.cards_padding);
+        recyclerViewAlimento.setPadding(tilePadding, tilePadding, tilePadding, tilePadding);
+        recyclerViewAlimento.setLayoutManager(new GridLayoutManager(this,3));
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -76,14 +77,14 @@ public class ListaAlimentosActivity extends AppCompatActivity {
 
             }
         });
+
         databaseReference2.child(uid_usuario).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot:
                         dataSnapshot.getChildren()){
-                    Estado estado = snapshot.getValue(Estado.class);
-                    if(estado != null)
-                    coleccion_alimentos.put(snapshot.getKey(),estado.isEstado());
+                    boolean estado = snapshot.getValue(Boolean.class);
+                    coleccion_alimentos.put(snapshot.getKey(),estado);
                 }
                 adapter.notifyDataSetChanged();
                 Log.d("ListaAlimentos",coleccion_alimentos.toString());
@@ -94,8 +95,6 @@ public class ListaAlimentosActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
 
     @Override
@@ -121,40 +120,5 @@ public class ListaAlimentosActivity extends AppCompatActivity {
         finish();
         overridePendingTransition(R.anim.back_in, R.anim.back_out);
     }
-    public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
-
-        private int spanCount;
-        private int spacing;
-        private boolean includeEdge;
-
-        public GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge) {
-            this.spanCount = spanCount;
-            this.spacing = spacing;
-            this.includeEdge = includeEdge;
-        }
-
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-            int position = parent.getChildAdapterPosition(view); // item position
-            int column = position % spanCount; // item column
-
-            if (includeEdge) {
-                outRect.left = spacing - column * spacing / spanCount; // spacing - column * ((1f / spanCount) * spacing)
-                outRect.right = (column + 1) * spacing / spanCount; // (column + 1) * ((1f / spanCount) * spacing)
-
-                if (position < spanCount) { // top edge
-                    outRect.top = spacing;
-                }
-                outRect.bottom = spacing; // item bottom
-            } else {
-                outRect.left = column * spacing / spanCount; // column * ((1f / spanCount) * spacing)
-                outRect.right = spacing - (column + 1) * spacing / spanCount; // spacing - (column + 1) * ((1f /    spanCount) * spacing)
-                if (position >= spanCount) {
-                    outRect.top = spacing; // item top
-                }
-            }
-        }
-    }
-
 
 }
