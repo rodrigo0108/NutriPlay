@@ -4,6 +4,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,7 +23,7 @@ public class DetalleAlimentoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detalle_alimento);
 
         imagen_flat = (ImageView) findViewById(R.id.imagen_alimento);
-        descripcion = (TextView)findViewById(R.id.cosa);
+        descripcion = (TextView)findViewById(R.id.nombre);
         // Pasar el Collapsing Toolbar layout a la pantalla
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
 
@@ -30,6 +31,7 @@ public class DetalleAlimentoActivity extends AppCompatActivity {
         datos_recolectados = getIntent().getExtras();
         alimento_escogido = datos_recolectados.getParcelable("DATOS_ALIMENTO");
 
+        Log.d("DetalleAlimento",alimento_escogido.getValorNutricional().getMinerales().toString());
         //Establecimiento de propiedades
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

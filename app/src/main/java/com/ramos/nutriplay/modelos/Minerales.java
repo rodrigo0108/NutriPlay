@@ -1,6 +1,9 @@
 package com.ramos.nutriplay.modelos;
 
-public class Minerales {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Minerales implements Parcelable{
     private String calcio,fosforo,hierro,magnesio,potasio,sodio;
 
     public Minerales() {
@@ -74,4 +77,40 @@ public class Minerales {
                 ", sodio='" + sodio + '\'' +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(calcio);
+        dest.writeString(fosforo);
+        dest.writeString(hierro);
+        dest.writeString(magnesio);
+        dest.writeString(potasio);
+        dest.writeString(sodio);
+    }
+
+    public Minerales(Parcel in) {
+        calcio = in.readString();
+        fosforo = in.readString();
+        hierro = in.readString();
+        magnesio = in.readString();
+        potasio = in.readString();
+        sodio = in.readString();
+    }
+
+    public static final Creator<Minerales> CREATOR = new Creator<Minerales>() {
+        @Override
+        public Minerales createFromParcel(Parcel in) {
+            return new Minerales(in);
+        }
+
+        @Override
+        public Minerales[] newArray(int size) {
+            return new Minerales[size];
+        }
+    };
 }

@@ -131,6 +131,7 @@ public class Alimento implements Parcelable{
         dest.writeString(pais_productor);
         dest.writeString(tips);
         dest.writeString(id);
+        dest.writeParcelable(valorNutricional,flags);
     }
 
     public Alimento(Parcel in) {
@@ -144,6 +145,7 @@ public class Alimento implements Parcelable{
         pais_productor = in.readString();
         tips = in.readString();
         id = in.readString();
+        valorNutricional = in.readParcelable(getClass().getClassLoader());
     }
 
     public static final Creator<Alimento> CREATOR = new Creator<Alimento>() {
