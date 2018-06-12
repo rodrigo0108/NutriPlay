@@ -13,28 +13,31 @@ import com.squareup.picasso.Picasso;
 
 public class DetalleAlimentoActivity extends AppCompatActivity {
     private TextView descripcion;
-
+    private Alimento alimento_escogido;
+    private  Bundle datos_recolectados;
+    private ImageView imagen_flat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_alimento);
-        int id = getResources().getIdentifier("yourpackagename:drawable/" + "material_flat.png", null, null);
 
+        imagen_flat = (ImageView) findViewById(R.id.imagen_alimento);
+        descripcion = (TextView)findViewById(R.id.cosa);
+        // Pasar el Collapsing Toolbar layout a la pantalla
+        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+
+        //Recepción de alimentos de la clase Parcelable Alimento
+        datos_recolectados = getIntent().getExtras();
+        alimento_escogido = datos_recolectados.getParcelable("DATOS_ALIMENTO");
+
+        //Establecimiento de propiedades
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        // Set Collapsing Toolbar layout to the screen
-        CollapsingToolbarLayout collapsingToolbar =
-                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(" ");
-        ImageView placePicutre = (ImageView) findViewById(R.id.imagen_alimento);
-        Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/nutri-846ac.appspot.com/o/Alimentos%2FManzana%2Fmanzana_flat.jpg?alt=media&token=aa247299-3163-48e0-9679-f4b68c3651b1").into(placePicutre);
 
-        //placePicutre.setImageDrawable(getResources().getDrawable(R.drawable.material_flat));
-        descripcion = (TextView)findViewById(R.id.cosa);
-
-        Bundle data = getIntent().getExtras();
-        String beneficio = data.getString("DATOS_ALIMENTO");
-        descripcion.setText(beneficio);
+        //Establecimiento de datos que se mostrarán el la actividad Detalle
+        Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/nutri-846ac.appspot.com/o/Alimentos%2FManzana%2Fmanzana_flat.jpg?alt=media&token=aa247299-3163-48e0-9679-f4b68c3651b1").into(imagen_flat);
+        descripcion.setText(alimento_escogido.getNombre());
 
     }
 }

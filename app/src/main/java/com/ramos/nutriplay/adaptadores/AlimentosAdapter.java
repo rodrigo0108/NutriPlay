@@ -53,7 +53,7 @@ public class AlimentosAdapter extends RecyclerView.Adapter<AlimentosAdapter.Alim
                         public void onClick(View v) {
                             //accion
                             Intent intent = new Intent(context, DetalleAlimentoActivity.class);
-                            intent.putExtra("DATOS_ALIMENTO", alimento.getBeneficios());
+                            intent.putExtra("DATOS_ALIMENTO", alimento);
                             context.startActivity(intent);
 
                         }

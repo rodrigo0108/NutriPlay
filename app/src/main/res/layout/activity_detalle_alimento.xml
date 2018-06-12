@@ -67,6 +67,15 @@
                     android:layout_margin="15dp">
 
                     <TextView
+                        android:id="@+id/info_event_details_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@id/cosa"
+                        android:text="Attention! Students placed in Amazon."
+                        android:textColor="#ab000000"
+                        android:textSize="15dp" />
+
+                    <TextView
                         android:id="@+id/cosa"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -76,14 +85,7 @@
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/info_event_details_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/cosa"
-                        android:text="Attention! Students placed in Amazon."
-                        android:textColor="#ab000000"
-                        android:textSize="15dp" />
+
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
         </FrameLayout>
