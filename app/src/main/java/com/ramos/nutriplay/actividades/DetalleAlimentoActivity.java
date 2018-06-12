@@ -36,7 +36,7 @@ public class DetalleAlimentoActivity extends AppCompatActivity {
         collapsingToolbar.setTitle(" ");
 
         //Establecimiento de datos que se mostrarán el la actividad Detalle
-        Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/nutri-846ac.appspot.com/o/Alimentos%2FManzana%2Fmanzana_flat.jpg?alt=media&token=aa247299-3163-48e0-9679-f4b68c3651b1").into(imagen_flat);
+        Picasso.get().load(alimento_escogido.getImagen_flat()).into(imagen_flat);
         descripcion.setText(alimento_escogido.getNombre());
 
     }
