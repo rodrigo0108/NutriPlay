@@ -4,15 +4,15 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Vitaminas implements Parcelable{
-    private String vit_a,vit_b,vit_c;
+    private String vit_a,vit_c,vit_d;
 
     public Vitaminas() {
     }
 
-    public Vitaminas(String vit_a, String vit_b, String vit_c) {
+    public Vitaminas(String vit_a, String vit_c, String vit_d) {
         this.vit_a = vit_a;
-        this.vit_b = vit_b;
         this.vit_c = vit_c;
+        this.vit_d = vit_d;
     }
 
     public String getVit_a() {
@@ -23,14 +23,6 @@ public class Vitaminas implements Parcelable{
         this.vit_a = vit_a;
     }
 
-    public String getVit_b() {
-        return vit_b;
-    }
-
-    public void setVit_b(String vit_b) {
-        this.vit_b = vit_b;
-    }
-
     public String getVit_c() {
         return vit_c;
     }
@@ -39,12 +31,20 @@ public class Vitaminas implements Parcelable{
         this.vit_c = vit_c;
     }
 
+    public String getVit_d() {
+        return vit_d;
+    }
+
+    public void setVit_d(String vit_d) {
+        this.vit_d = vit_d;
+    }
+
     @Override
     public String toString() {
         return "Vitaminas{" +
                 "vit_a='" + vit_a + '\'' +
-                ", vit_b='" + vit_b + '\'' +
                 ", vit_c='" + vit_c + '\'' +
+                ", vit_d='" + vit_d + '\'' +
                 '}';
     }
 
@@ -56,15 +56,15 @@ public class Vitaminas implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(vit_a);
-        dest.writeString(vit_b);
         dest.writeString(vit_c);
+        dest.writeString(vit_d);
     }
 
 
     public Vitaminas(Parcel in) {
         vit_a = in.readString();
-        vit_b = in.readString();
         vit_c = in.readString();
+        vit_d = in.readString();
     }
 
     public static final Creator<Vitaminas> CREATOR = new Creator<Vitaminas>() {
