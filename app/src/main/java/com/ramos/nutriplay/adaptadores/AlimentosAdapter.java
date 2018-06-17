@@ -21,14 +21,15 @@ import com.squareup.picasso.Picasso;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AlimentosAdapter extends RecyclerView.Adapter<AlimentosAdapter.AlimentoViewHolder> {
 
     private List<Alimento> alimentoList;
     private Context context;
-    private HashMap<String,Boolean> coleccion_alimentos;
+    private Map<String,Boolean> coleccion_alimentos;
 
-    public AlimentosAdapter(List<Alimento> alimentoList,Context context,HashMap<String,Boolean> coleccion_alimentos) {
+    public AlimentosAdapter(List<Alimento> alimentoList,Context context,Map<String,Boolean> coleccion_alimentos) {
         this.alimentoList = alimentoList;
         this.context = context;
         this.coleccion_alimentos = coleccion_alimentos;

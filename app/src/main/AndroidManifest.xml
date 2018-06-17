@@ -7,9 +7,10 @@
     <!-- Permiso de lectura y escritura al almacenamiento externo del dispositivo -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- Acceso a internet para Picasso-->
+    <!-- Acceso a internet para Picasso e IBM-->
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <!-- Acceso al estado de conexión a internet-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
