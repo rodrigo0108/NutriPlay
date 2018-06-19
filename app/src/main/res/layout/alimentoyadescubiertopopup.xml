@@ -31,9 +31,9 @@
                 android:layout_marginBottom="25dp">
                 <ImageView
                     android:id="@+id/alimento_popup"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/question_mark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/av6"
                     android:layout_marginBottom="15dp"
                     android:layout_gravity="center"/>
                 <TextView
@@ -43,26 +43,8 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:textAlignment="center"
-                    android:textSize="20sp"
-                    android:text="Nuevo alimento registrado"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-                    <TextView
-                        fontPath="fonts/dosis-light.ttf"
-                        android:id="@+id/ganaste_cantidad"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="15sp"
-                        android:text="Ganaste: 50 "/>
-                    <ImageView
-                        android:id="@+id/moneda"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:src="@drawable/moneda"/>
-                </LinearLayout>
+                    android:textSize="18sp"
+                    android:text="El alimento ya ha sido descubierto =)"/>
 
                 <Button
                     android:id="@+id/botonAceptar"
@@ -70,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:text="Aceptar"
                     android:textColor="@color/white"
-                    android:background="@drawable/boton_verde_redondo"
+                    android:background="@drawable/boton_rojo_redondo"
                     android:layout_marginTop="15dp"
                     android:layout_gravity="center_horizontal"/>
 

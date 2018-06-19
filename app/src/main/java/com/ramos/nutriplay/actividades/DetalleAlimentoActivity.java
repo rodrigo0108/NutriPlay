@@ -77,7 +77,7 @@ public class DetalleAlimentoActivity extends AppCompatActivity {
         dbReferenciaPais = firebaseDatabase.getReference("Pais");
 
         //Inicialización de la librería de fuentes de texto
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder().setDefaultFontPath("fonts/adventpro-medium.ttf").setFontAttrId(R.attr.fontPath).build());
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder().setDefaultFontPath("fonts/dosis-book.ttf").setFontAttrId(R.attr.fontPath).build());
         //Recepción de alimentos de la clase Parcelable Alimento
         datos_recolectados = getIntent().getExtras();
         alimento_escogido = datos_recolectados.getParcelable("DATOS_ALIMENTO");
@@ -89,7 +89,7 @@ public class DetalleAlimentoActivity extends AppCompatActivity {
         collapsingToolbar.setTitle(" ");
 
         //Consulta Categoria Alimento
-        dbReferenciaCategoriaAlimento.child(alimento_escogido.getCategoria()).addValueEventListener(new ValueEventListener() {
+        dbReferenciaCategoriaAlimento.child(alimento_escogido.getCategoria_alimento()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot:

@@ -4,16 +4,20 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Alimento implements Parcelable{
-    private String beneficios,categoria,imagen,imagen_flat,imagen_oscura,nombre,origen,pais_productor,tips,id;
+    private String beneficios,categoria_alimento,categoria_valor,imagen,imagen_flat,imagen_oscura,nombre,origen,pais_productor,tips,id;
+
+
+
     private ValorNutricional valorNutricional;
 
     public Alimento() {
         //Super importante para que Firebase RealTime Database funcione
     }
 
-    public Alimento(String beneficios, String categoria, String imagen, String imagen_flat, String imagen_oscura, String nombre, String origen, String pais_productor, String tips, String id, ValorNutricional valorNutricional) {
+    public Alimento(String beneficios, String categoria_alimento,String categoria_valor,String imagen, String imagen_flat, String imagen_oscura, String nombre, String origen, String pais_productor, String tips, String id, ValorNutricional valorNutricional) {
         this.beneficios = beneficios;
-        this.categoria = categoria;
+        this.categoria_alimento = categoria_alimento;
+        this.categoria_valor = categoria_valor;
         this.imagen = imagen;
         this.imagen_flat = imagen_flat;
         this.imagen_oscura = imagen_oscura;
@@ -33,12 +37,20 @@ public class Alimento implements Parcelable{
         this.beneficios = beneficios;
     }
 
-    public String getCategoria() {
-        return categoria;
+    public String getCategoria_alimento() {
+        return categoria_alimento;
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setCategoria_alimento(String categoria_alimento) {
+        this.categoria_alimento = categoria_alimento;
+    }
+
+    public String getCategoria_valor() {
+        return categoria_valor;
+    }
+
+    public void setCategoria_valor(String categoria_valor) {
+        this.categoria_valor = categoria_valor;
     }
 
     public String getImagen() {
@@ -122,7 +134,8 @@ public class Alimento implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(beneficios);
-        dest.writeString(categoria);
+        dest.writeString(categoria_alimento);
+        dest.writeString(categoria_valor);
         dest.writeString(imagen);
         dest.writeString(imagen_flat);
         dest.writeString(imagen_oscura);
@@ -136,7 +149,8 @@ public class Alimento implements Parcelable{
 
     public Alimento(Parcel in) {
         beneficios = in.readString();
-        categoria = in.readString();
+        categoria_alimento = in.readString();
+        categoria_valor = in.readString();
         imagen = in.readString();
         imagen_flat = in.readString();
         imagen_oscura = in.readString();
