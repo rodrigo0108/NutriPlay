@@ -83,7 +83,7 @@ public class DetalleAlimentoActivity extends AppCompatActivity {
         alimento_escogido = datos_recolectados.getParcelable("DATOS_ALIMENTO");
 
         Log.d(TAG,alimento_escogido.getValorNutricional().getMinerales().toString());
-        //Establecimiento de propiedades
+        //Establecimiento de propiedades para el toolbar
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         collapsingToolbar.setTitle(" ");

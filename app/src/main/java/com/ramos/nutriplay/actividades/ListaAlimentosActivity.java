@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -84,6 +85,7 @@ public class ListaAlimentosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alimentos);
+
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
         coordinatorLayout = findViewById(R.id.coordinatorLayout);
@@ -131,21 +133,6 @@ public class ListaAlimentosActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot:
                          dataSnapshot.getChildren()) {
                     final Alimento alimento= snapshot.getValue(Alimento.class);
-                    /*databaseReference3.child(alimento.getCategoria_valor()).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot snapshot:
-                                    dataSnapshot.getChildren()){
-                                CategoriaValor categoriaValor = snapshot.getValue(CategoriaValor.class);
-                                alimento.setMoneda(categoriaValor.getMoneda());
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });*/
                     alimento.setId(snapshot.getKey());
                     Log.d("ListaAlimentosActivity","El valor: "+snapshot.getValue());
                     alimentos.add(alimento);
@@ -221,61 +208,51 @@ public class ListaAlimentosActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
-                    if (requestCode == CameraHelper.REQUEST_IMAGE_CAPTURE) {
-
-                        progressDialog = ProgressDialog.show(this, "Cargando", "El registro demomará unos segundos...", true);
-                        //you usually don't want the user to stop the current process, and this will make sure of that
-                        final File photoFile = helper.getFile(resultCode);
-                        //Por que
-                        Log.e("Capturado", photoFile + "");
-
-                        if (photoFile == null){
-                            progressDialog.dismiss();
-                            return;
+            if (requestCode == CameraHelper.REQUEST_IMAGE_CAPTURE) {
+                progressDialog = ProgressDialog.show(this, "Cargando", "El registro demorará unos segundos...", true);
+                //you usually don't want the user to stop the current process, and this will make sure of that
+                    final File photoFile = helper.getFile(resultCode);
+                    Log.e("Capturado", photoFile + "");
+                    if (photoFile == null){
+                        progressDialog.dismiss();
+                        return;
                         }
 
+                    AsyncTask.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                ClassifyOptions classifyOptions = null;
+                                classifyOptions = new ClassifyOptions.Builder()
+                                        .imagesFile(photoFile)
+                                        .imagesFilename(photoFile.getName())
+                                        .threshold((float) 0.6)
+                                        .acceptLanguage("es")
+                                        .owners(Arrays.asList("me"))
+                                        .classifierIds(Arrays.asList("Alimento_396195486"))
+                                        .build();
+                                final ClassifiedImages result = service.classify(classifyOptions).execute();
+                                Log.e("ListaAlimentosAc", result.toString());
 
-                        AsyncTask.execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    ClassifyOptions classifyOptions = null;
-                                    classifyOptions = new ClassifyOptions.Builder()
-                                            .imagesFile(photoFile)
-                                            .imagesFilename(photoFile.getName())
-                                            .threshold((float) 0.6)
-                                            .acceptLanguage("es")
-                                            .owners(Arrays.asList("me"))
-                                            .classifierIds(Arrays.asList("Alimento_396195486"))
-                                            .build();
-
-
-                                    final ClassifiedImages result = service.classify(classifyOptions).execute();
-
-                                    Log.e("ListaAlimentosAc", result.toString());
-
-                                    ClassifierResult classifier = result.getImages().get(0).getClassifiers().get(0);
-                                    final List<String> alimentos_detectados = new ArrayList<String>();
-
-                                    //final StringBuffer output = new StringBuffer();
-                                    for (ClassResult object : classifier.getClasses()) {
-                                        if (object.getScore() > 0.7f)
+                                ClassifierResult classifier = result.getImages().get(0).getClassifiers().get(0);
+                                final List<String> alimentos_detectados = new ArrayList<String>();
+                                //final StringBuffer output = new StringBuffer();
+                                for (ClassResult object : classifier.getClasses()) {
+                                    if (object.getScore() > 0.7f)
                                             alimentos_detectados.add(object.getClassName());
                                     }
-
-                                    Log.e("ListaAlimentosAc", alimentos_detectados.toString());
-
-                                    runOnUiThread(new Runnable() {
+                                Log.e("ListaAlimentosAc", alimentos_detectados.toString());
+                                runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            if (alimentos_detectados.isEmpty()) {
-                                                Log.e("ListaAlimentosAc","El elemento detectado no es un alimento");
-                                                //PopUp
-                                                MostrarPopUpNoEsAlimento();
-                                                progressDialog.dismiss();
-                                            } else {
-                                                Log.e("ListaAlimentosAc","El alimento es: " + alimentos_detectados.get(0));
-                                                if(id_alimentos.containsValue(alimentos_detectados.get(0))){
+                                    if (alimentos_detectados.isEmpty()) {
+                                    Log.e("ListaAlimentosAc","El elemento detectado no es un alimento");
+                                    //PopUp
+                                    MostrarPopUpNoEsAlimento();
+                                    progressDialog.dismiss();
+                                    }else{
+                                        Log.e("ListaAlimentosAc","El alimento es: " + alimentos_detectados.get(0));
+                                        if(id_alimentos.containsValue(alimentos_detectados.get(0))){
                                                     //Existe en la bd
                                                     Log.e("ListaAlimentosAc","Alimento: "+alimentos_detectados.get(0)+" existe en la bd");
                                                     getKeyFromValue(coleccion_alimentos, alimentos_detectados.get(0));
@@ -329,6 +306,7 @@ public class ListaAlimentosActivity extends AppCompatActivity {
                                 } catch (Throwable t){
                                     t.printStackTrace();
                                     Log.e("MainActivty", t.getMessage(), t);
+                                Toast.makeText(getApplicationContext(),"¡Ups!, Ocurrieron algunos errores, inténtalo de nuevo.",Toast.LENGTH_LONG).show();
                                 }finally {
                                     progressDialog.dismiss();
                                 }
@@ -342,9 +320,6 @@ public class ListaAlimentosActivity extends AppCompatActivity {
             mostrarSnackbar();
             Log.e("ListaAlimentosAc", e.getMessage(), e);
         }
-        /*finally {
-            progressDialog.dismiss();
-        }*/
     }
     public boolean isOnline() {
         ConnectivityManager cm =
@@ -429,6 +404,5 @@ public class ListaAlimentosActivity extends AppCompatActivity {
         }
         return null;
     }
-
 
 }

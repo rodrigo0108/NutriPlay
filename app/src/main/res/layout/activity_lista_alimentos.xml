@@ -6,16 +6,28 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".actividades.ListaAlimentosActivity">
+    tools:context=".actividades.ListaAlimentosActivity"
+    tools:ignore="MissingPrefix">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/mis_alimentos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:gravity="center"
+            android:textSize="40sp"
+            android:text="Mis alimentos" />
+
         <android.support.v7.widget.RecyclerView
+            android:layout_below="@+id/mis_alimentos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/recyclerViewAlimentos">
-
         </android.support.v7.widget.RecyclerView>
+
         <toan.android.floatingactionmenu.FloatingActionButton
             android:id="@+id/tomar_foto"
             android:layout_width="wrap_content"
